@@ -9,21 +9,16 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import WebView from 'react-native-webview';
-import {useSelector, useDispatch} from 'react-redux';
-import {RouteProp} from '@react-navigation/native';
-import {RootStackParamList} from 'types';
-import {RootState} from 'store';
+import {useSelector} from 'react-redux';
+import {RootState, useAppDispatch} from 'store';
 import {getStory, getUser} from 'store/storySlice';
 import {formatDate} from 'helper';
-import {AppDispatch} from 'store';
+import {useAppRootRoute} from 'hooks/useAppNavigation';
 
-type StoryDetailScreenProps = {
-  route: RouteProp<RootStackParamList, 'StoryDetail'>;
-};
-
-const StoryDetailScreen: React.FC<StoryDetailScreenProps> = ({route}) => {
+const StoryDetailScreen = () => {
+  const route = useAppRootRoute<'StoryDetail'>();
   const {storyId} = route.params;
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   const story = useSelector(
     (state: RootState) => state.stories.stories[storyId],

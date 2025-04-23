@@ -6,22 +6,18 @@ import {
   Text,
   RefreshControl,
 } from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList, Story} from 'types';
-import {RootState} from 'store';
+import {Story} from 'types';
+import {useAppDispatch, useAppSelector} from 'store';
 import {getStory, getTopStories} from 'store/storySlice';
 import StoryItem from 'components/StoryItem';
-import {AppDispatch} from 'store';
 import styles from './styles';
-type HomeScreenProps = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Home'>;
-};
+import {useAppRootNavigation} from 'hooks/useAppNavigation';
 
-const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
-  const dispatch = useDispatch<AppDispatch>();
-  const {topStories, stories, loading, error} = useSelector(
-    (state: RootState) => state.stories,
+const HomeScreen = () => {
+  const navigation = useAppRootNavigation();
+  const dispatch = useAppDispatch();
+  const {topStories, stories, loading, error} = useAppSelector(
+    state => state.stories,
   );
   const [refreshing, setRefreshing] = useState(false);
 
