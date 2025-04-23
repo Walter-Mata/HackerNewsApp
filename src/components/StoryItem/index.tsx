@@ -1,8 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Linking} from 'react-native';
-import {useSelector} from 'react-redux';
 import {Story} from 'types';
-import {RootState} from 'store';
+import {useAppSelector} from 'store';
 import {formatDate} from 'helper';
 
 type StoryItemProps = {
@@ -11,7 +10,7 @@ type StoryItemProps = {
 };
 
 const StoryItem: React.FC<StoryItemProps> = ({story, onPress}) => {
-  const user = useSelector((state: RootState) => state.stories.users[story.by]);
+  const user = useAppSelector(state => state.stories.users[story.by]);
 
   const handleUrlPress = () => {
     if (story.url) {
