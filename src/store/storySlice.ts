@@ -14,8 +14,12 @@ export const getTopStories = createAsyncThunk(
   'stories/getTopStories',
   async (_, {dispatch}) => {
     const topStoryIds = await fetchTopStories();
-    // Get only the first 10 stories
-    return topStoryIds.slice(0, 10);
+    return (
+      topStoryIds
+        .sort(() => 0.5 - Math.random()) // shuffle
+        // Get only 10 stories
+        .slice(0, 10)
+    );
   },
 );
 
